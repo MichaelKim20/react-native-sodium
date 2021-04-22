@@ -1,24 +1,40 @@
 {
-  "name": "react-native-sodium",
-  "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lyubo/react-native-sodium.git"
-  },
-  "scripts": {
-    "postinstall": "tar -xzf precompiled.tgz",
-    "rebuild": "./build.sh"
-  },
-  "version": "0.3.9",
-  "description": "The Sodium crypto library for React Native.",
-  "author": "Lyubomir Ivanov",
-  "main": "index.js",
-  "nativePackage": true,
-  "license": "ISC",
-  "homepage": "https://github.com/lyubo/react-native-sodium",
-  "keywords": [
-    "react-native",
-    "crypto",
-    "nacl",
-    "sodium"
-  ]
+    "name": "react-native-sodium-boa",
+    "version": "0.0.2",
+    "description": "The Sodium crypto library for React Native",
+    "nativePackage": true,
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "prepare": "rimraf ./lib && tsc",
+        "build": "rimraf ./lib && tsc",
+        "postinstall": "tar -xzf precompiled.tgz",
+        "rebuild": "./build.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bosagora/react-native-sodium.git"
+    },
+    "author": "BOSAGORA Foundation",
+    "license": "ISC",
+    "homepage": "https://github.com/bosagora/react-native-sodium",
+    "keywords": [
+        "react-native",
+        "crypto",
+        "nacl",
+        "sodium"
+    ],
+    "dependencies": {
+        "boa-sodium-base-ts": "^0.0.10"
+    },
+    "devDependencies": {
+        "@types/node": "^14.0.14",
+        "@types/react": "^16.9.19",
+        "@types/react-native": "0.62.13",
+        "react": "16.13.1",
+        "react-native": "0.63.4",
+        "rimraf": "^3.0.2",
+        "ts-node": "^8.10.2",
+        "typescript": "^3.9.5"
+    }
 }
