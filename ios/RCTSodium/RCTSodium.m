@@ -695,8 +695,10 @@ RCT_EXPORT_METHOD(crypto_core_ed25519_scalar_reduce:(NSString*)s resolve:(RCTPro
   else if (ds.length != CRYPTO_CORE_ED25519_NONREDUCEDSCALARBYTES)
     reject(ESODIUM,ERR_BAD_KEY,nil);
   else {
-    crypto_core_ed25519_scalar_reduce(res, [ds bytes]);
-    resolve([[NSData dataWithBytesNoCopy:res length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
+    if (crypto_core_ed25519_scalar_reduce(res, [ds bytes]) != 0)
+      reject(ESODIUM,ERR_FAILURE, nil);
+    else
+      resolve([[NSData dataWithBytesNoCopy:res length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
   }
 }
 
@@ -711,8 +713,10 @@ RCT_EXPORT_METHOD(crypto_scalarmult_ed25519:(NSString*)n p:(NSString*)p resolve:
   else if ((dn.length != CRYPTO_CORE_ED25519_SCALARBYTES) || (dp.length != CRYPTO_CORE_ED25519_BYTES))
     reject(ESODIUM,ERR_BAD_KEY,nil);
   else {
-    crypto_scalarmult_ed25519(q, [dn bytes], [dp bytes]);
-    resolve([[NSData dataWithBytesNoCopy:q length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
+    if (crypto_scalarmult_ed25519(q, [dn bytes], [dp bytes]) != 0)
+      reject(ESODIUM,ERR_FAILURE, nil);
+    else
+      resolve([[NSData dataWithBytesNoCopy:q length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
   }
 }
 
@@ -727,7 +731,9 @@ RCT_EXPORT_METHOD(crypto_scalarmult_ed25519_noclamp:(NSString*)n p:(NSString*)p 
   else if ((dn.length != CRYPTO_CORE_ED25519_SCALARBYTES) || (dp.length != CRYPTO_CORE_ED25519_BYTES))
     reject(ESODIUM,ERR_BAD_KEY,nil);
   else {
-    crypto_scalarmult_ed25519_noclamp(q, [dn bytes], [dp bytes]);
+    if (crypto_scalarmult_ed25519_noclamp(q, [dn bytes], [dp bytes]) != 0)
+      reject(ESODIUM,ERR_FAILURE, nil);
+    else
     resolve([[NSData dataWithBytesNoCopy:q length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
   }
 }
@@ -742,8 +748,10 @@ RCT_EXPORT_METHOD(crypto_scalarmult_ed25519_base:(NSString*)n resolve:(RCTPromis
   else if (dn.length != CRYPTO_CORE_ED25519_SCALARBYTES)
     reject(ESODIUM,ERR_BAD_KEY,nil);
   else {
-    crypto_scalarmult_ed25519_base(q, [dn bytes]);
-    resolve([[NSData dataWithBytesNoCopy:q length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
+    if (crypto_scalarmult_ed25519_base(q, [dn bytes]) != 0)
+      reject(ESODIUM,ERR_FAILURE, nil);
+    else
+      resolve([[NSData dataWithBytesNoCopy:q length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
   }
 }
 
@@ -757,8 +765,10 @@ RCT_EXPORT_METHOD(crypto_scalarmult_ed25519_base_noclamp:(NSString*)n resolve:(R
   else if (dn.length != CRYPTO_CORE_ED25519_SCALARBYTES)
     reject(ESODIUM,ERR_BAD_KEY,nil);
   else {
-    crypto_scalarmult_ed25519_base_noclamp(q, [dn bytes]);
-    resolve([[NSData dataWithBytesNoCopy:q length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
+    if (crypto_scalarmult_ed25519_base_noclamp(q, [dn bytes]) != 0)
+      reject(ESODIUM,ERR_FAILURE, nil);
+    else
+      resolve([[NSData dataWithBytesNoCopy:q length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
   }
 }
 
