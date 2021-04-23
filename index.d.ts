@@ -376,6 +376,7 @@ declare module "react-native-sodium" {
   export const crypto_pwhash_ALG_ARGON2ID13: number;
 
   export function crypto_core_ed25519_random(): Promise<string>;
+  /*
   export function crypto_core_ed25519_from_uniform(r: string): Promise<string>;
   export function crypto_core_ed25519_add(p: string, q: string): Promise<string>;
   export function crypto_core_ed25519_sub(p: string, q: string): Promise<string>;
@@ -393,4 +394,5 @@ declare module "react-native-sodium" {
   export function crypto_scalarmult_ed25519_base(n: string): Promise<string>;
   export function crypto_scalarmult_ed25519_base_noclamp(n: string): Promise<string>;
   export function crypto_scalarmult_ed25519_noclamp(n: string, p: string): Promise<string>;
+  */
 }

@@ -519,7 +519,7 @@ RCT_EXPORT_METHOD(crypto_core_ed25519_random:(RCTPromiseResolveBlock)resolve rej
     resolve([[NSData dataWithBytesNoCopy:p length:CRYPTO_CORE_ED25519_BYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
   }
 }
-
+/*
 RCT_EXPORT_METHOD(crypto_core_ed25519_from_uniform:(NSString*)r resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
   const NSData *dr = [[NSData alloc] initWithBase64EncodedString:r options:0];
@@ -793,5 +793,5 @@ RCT_EXPORT_METHOD(crypto_generichash:(NSUInteger)hash_length msg:(NSString*)msg 
       resolve([[NSData dataWithBytesNoCopy:res length:hash_length freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
     }
 }
-
+*/
 @end
