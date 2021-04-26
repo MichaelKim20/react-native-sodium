@@ -695,10 +695,8 @@ RCT_EXPORT_METHOD(crypto_core_ed25519_scalar_reduce:(NSString*)s resolve:(RCTPro
   else if (ds.length != CRYPTO_CORE_ED25519_NONREDUCEDSCALARBYTES)
     reject(ESODIUM,ERR_BAD_KEY,nil);
   else {
-    if (crypto_core_ed25519_scalar_reduce(res, [ds bytes]) != 0)
-      reject(ESODIUM,ERR_FAILURE, nil);
-    else
-      resolve([[NSData dataWithBytesNoCopy:res length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
+    crypto_core_ed25519_scalar_reduce(res, [ds bytes]);
+    resolve([[NSData dataWithBytesNoCopy:res length:CRYPTO_CORE_ED25519_SCALARBYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
   }
 }
 
@@ -778,7 +776,7 @@ RCT_EXPORT_METHOD(crypto_generichash:(NSUInteger)hash_length msg:(NSString*)msg 
   const NSData *dkey = [[NSData alloc] initWithBase64EncodedString:key options:0];
   unsigned char *res = (unsigned char *) sodium_malloc(hash_length);
 
-  if (!dmsg || !dkey || !q)
+  if (!dmsg || !dkey || !res)
     reject(ESODIUM,ERR_FAILURE,nil);
   else {
     int result;
