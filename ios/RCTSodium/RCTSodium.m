@@ -502,4 +502,17 @@ RCT_EXPORT_METHOD(crypto_sign_ed25519_sk_to_pk:(NSString*)sk resolve: (RCTPromis
   }
 }
 
+RCT_EXPORT_METHOD(crypto_core_ed25519_random:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+{
+  unsigned char *p = (unsigned char *) sodium_malloc(CRYPTO_CORE_ED25519_BYTES);
+
+  if (p == NULL) {
+    reject(ESODIUM,ERR_FAILURE,nil);
+  } else {
+    crypto_core_ed25519_random(p);
+    resolve([[NSData dataWithBytesNoCopy:p length:CRYPTO_CORE_ED25519_BYTES freeWhenDone:NO]  base64EncodedStringWithOptions:0]);
+    sodium_free(p);
+  }
+}
+
 @end

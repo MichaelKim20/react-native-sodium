@@ -45,4 +45,5 @@
 - (void) crypto_box_seal:(NSString*)m pk:(NSString*)pk resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;
 - (void) crypto_box_seal_open:(NSString*)c pk:(NSString*)pk sk:(NSString*)sk resolve: (RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;
 
+- (void) crypto_core_ed25519_random:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;
 @end
