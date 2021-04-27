@@ -71,4 +71,6 @@
 - (void) crypto_aead_xchacha20poly1305_ietf_encrypt:(NSString*)message additional_data:(NSString*)additional_data secret_nonce:(NSString*)secret_nonce public_nonce:(NSString*)public_nonce key:(NSString*)key resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;
 - (void) crypto_aead_xchacha20poly1305_ietf_decrypt:(NSString*)secret_nonce ciphertext:(NSString*)ciphertext additional_data:(NSString*)additional_data public_nonce:(NSString*)public_nonce key:(NSString*)key resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject;
 
+- (NSString*) crypto_generichash_sync:(NSUInteger)hash_length msg:(NSString*)msg key:(NSString*)key;
+
 @end

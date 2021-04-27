@@ -894,7 +894,7 @@ RCT_EXPORT_METHOD(crypto_aead_xchacha20poly1305_ietf_encrypt:(NSString*)message 
     const NSData *d_secret_nonce;
     const NSData *d_public_nonce;
     const NSData *d_key;
-  
+
     unsigned char *p_message = nil;
     unsigned char *p_additional_data = nil;
     unsigned char *p_secret_nonce = nil;
@@ -1026,5 +1026,47 @@ RCT_EXPORT_METHOD(crypto_aead_xchacha20poly1305_ietf_decrypt:(NSString*)secret_n
         sodium_free(p_message);
     }
 }
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(crypto_generichash_sync:(NSUInteger)hash_length msg:(NSString*)msg key:(NSString*)key)
+{
+    const NSData *d_msg = [[NSData alloc] initWithBase64EncodedString:msg options:0];
+    const NSData *d_key;
+    unsigned char *p_key = nil;
+    unsigned long long n_key = 0;
+
+    if ([key length] > 0)
+    {
+        d_key = [[NSData alloc] initWithBase64EncodedString:key options:0];
+        p_key = [d_key bytes];
+        n_key = [d_key length];
+    }
+
+    int error = 0;
+    NSString* data = @"";
+    if (!d_msg)
+        error = 1;
+    else {
+        unsigned char *res = (unsigned char *) sodium_malloc(hash_length);
+        if (!res)
+            error = 1;
+        else {
+            int result= crypto_generichash(res, (u_int32_t)hash_length, [d_msg bytes], d_msg.length, p_key, n_key);
+            if (result != 0)
+                error = 1;
+            else
+                data = [[NSData dataWithBytesNoCopy:res length:hash_length freeWhenDone:NO]  base64EncodedStringWithOptions:0];
+            sodium_free(res);
+        }
+    }
+    NSMutableDictionary * result = [NSMutableDictionary new];
+    [result setValue:error forkey:@"status"];
+    [result setValue:data forkey:@"data"];
+
+    NSData* nsData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
+    NSString* nsString = [[NSString alloc] initWithData:naData encoding:NSUTF8StringEncoding];
+
+    return [nsString];
+}
+
 
 @end
